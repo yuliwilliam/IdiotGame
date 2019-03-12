@@ -1,16 +1,21 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.Random;
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
+        LinkedList questions = new LinkedList();
+        questions.add("Are you Idiot？");
+        questions.add("Want to be happier？");
+
 
         int height = 500;
         int width = (int) (height * 0.618);
+
         JFrame frame = new JFrame();
         JPanel panel = (JPanel) frame.getContentPane();
-        JLabel label = new JLabel("Are you idiot？");
+        JLabel label = new JLabel(questions.pop().toString());
         JButton yesBtn = new JButton("YES");
         JButton noBtn = new JButton("NO");
 
@@ -25,7 +30,15 @@ public class Main {
 
         yesBtn.addActionListener(e -> {
             JOptionPane.showMessageDialog(null, "You are right!");
-            System.exit(0);
+
+            //exit if no more questions to ask
+            if (questions.size() == 0) {
+                System.exit(0);
+            }
+            label.setText(questions.pop().toString());
+            Dimension newLabelSize = label.getPreferredSize();
+            label.setBounds(frame.getWidth() / 2 - (int) newLabelSize.getWidth() / 2, 100, (int) newLabelSize.getWidth(), (int) newLabelSize.getHeight());
+
         });
 
         panel.add(label);
@@ -49,9 +62,6 @@ public class Main {
 
         while (true) {
 
-            height = frame.getHeight();
-            width = frame.getWidth();
-
             Point frameLocation = frame.getLocation();
             Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
 
@@ -61,11 +71,12 @@ public class Main {
 
             if (noBtn.getBounds().contains(x, y)) {
                 Random rand = new Random();
-                noBtn.setBounds(rand.nextInt(width - (int) btnSize.getWidth()), rand.nextInt(height - (int) btnSize.getHeight()), (int) btnSize.getWidth(), (int) btnSize.getHeight());
+                noBtn.setBounds(rand.nextInt(frame.getWidth() - (int) btnSize.getWidth()), rand.nextInt(frame.getHeight() - (int) btnSize.getHeight()), (int) btnSize.getWidth(), (int) btnSize.getHeight());
 
             }
-            label.setBounds(width / 2 - (int) labelSize.getWidth() / 2, 100, (int) labelSize.getWidth(), (int) labelSize.getHeight());
-            yesBtn.setBounds(50, height - 100, (int) btnSize.getWidth(), (int) btnSize.getHeight());
+            labelSize = label.getPreferredSize();
+            label.setBounds(frame.getWidth() / 2 - (int) labelSize.getWidth() / 2, 100, (int) labelSize.getWidth(), (int) labelSize.getHeight());
+            yesBtn.setBounds(50, frame.getHeight() - 100, (int) btnSize.getWidth(), (int) btnSize.getHeight());
 
         }
 
