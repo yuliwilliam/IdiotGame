@@ -46,6 +46,11 @@ public class Main {
 
         });
 
+        noBtn.addActionListener(e -> {
+            JOptionPane.showMessageDialog(null, "Wrong answer!");
+        });
+
+
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
@@ -70,9 +75,9 @@ public class Main {
             Point frameLocation = frame.getLocation();
             Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
 
-            //find relative position of mouse, frame.getInsets().top is the size of title bar
-            double x = mouseLocation.getX() - frameLocation.getX();
-            double y = mouseLocation.getY() - frameLocation.getY() - frame.getInsets().top;
+            //find relative position of mouse, frame.getInsets().top is the size of title bar, frame.getInsets().left is the left boarder
+            double x = mouseLocation.getX() - frameLocation.getX() - frame.getInsets().left - frame.getInsets().right;
+            double y = mouseLocation.getY() - frameLocation.getY() - frame.getInsets().top - frame.getInsets().bottom;
 
             //limit the minimum JFrame size
             if (frame.getHeight() < height || frame.getWidth() < width){
@@ -82,13 +87,13 @@ public class Main {
             //random change location
             if (noBtn.getBounds().contains(x, y)) {
                 Random rand = new Random();
-                noBtn.setBounds(rand.nextInt(frame.getWidth() - (int) btnSize.getWidth()), rand.nextInt(frame.getHeight() - (int) btnSize.getHeight() - frame.getInsets().top), (int) btnSize.getWidth(), (int) btnSize.getHeight());
+                noBtn.setBounds(rand.nextInt(frame.getWidth() - (int) btnSize.getWidth() - frame.getInsets().left - frame.getInsets().right), rand.nextInt(frame.getHeight() - (int) btnSize.getHeight() - frame.getInsets().top - frame.getInsets().bottom), (int) btnSize.getWidth(), (int) btnSize.getHeight());
             }
 
             //random change location if outside frame
-            if(noBtn.getX() > frame.getWidth() - (int) btnSize.getWidth() || noBtn.getY() >= frame.getHeight() - (int) btnSize.getHeight() - frame.getInsets().top){
+            if(noBtn.getX() > frame.getWidth() - (int) btnSize.getWidth() - frame.getInsets().left - frame.getInsets().right || noBtn.getY() >= frame.getHeight() - (int) btnSize.getHeight() - frame.getInsets().top - frame.getInsets().bottom){
                 Random rand = new Random();
-                noBtn.setBounds(rand.nextInt(frame.getWidth() - (int) btnSize.getWidth()), rand.nextInt(frame.getHeight() - (int) btnSize.getHeight() - frame.getInsets().top), (int) btnSize.getWidth(), (int) btnSize.getHeight());
+                noBtn.setBounds(rand.nextInt(frame.getWidth() - (int) btnSize.getWidth() - frame.getInsets().left - frame.getInsets().right), rand.nextInt(frame.getHeight() - (int) btnSize.getHeight() - frame.getInsets().top - frame.getInsets().bottom), (int) btnSize.getWidth(), (int) btnSize.getHeight());
             }
 
             labelSize = label.getPreferredSize();
