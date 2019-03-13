@@ -20,6 +20,7 @@ public class Main {
         JButton noBtn = new JButton("NO");
 
         panel.setLayout(null);
+        System.out.println(frame.getWidth());
 
         Dimension labelSize = label.getPreferredSize();
         Dimension btnSize = yesBtn.getPreferredSize();
@@ -59,15 +60,14 @@ public class Main {
         frame.setSize(new Dimension(width, height));
         frame.setVisible(true);
 
-
         while (true) {
 
             Point frameLocation = frame.getLocation();
             Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
 
-            //find relative position of mouse, 20 is the size of menu bar
+            //find relative position of mouse, frame.getInsets().top is the size of title bar
             double x = mouseLocation.getX() - frameLocation.getX();
-            double y = mouseLocation.getY() - frameLocation.getY() - 20;
+            double y = mouseLocation.getY() - frameLocation.getY() - frame.getInsets().top;
 
             if (noBtn.getBounds().contains(x, y)) {
                 Random rand = new Random();
