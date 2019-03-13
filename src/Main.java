@@ -76,8 +76,8 @@ public class Main {
             Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
 
             //find relative position of mouse, frame.getInsets().top is the size of title bar, frame.getInsets().left is the left boarder
-            double x = mouseLocation.getX() - frameLocation.getX() - frame.getInsets().left - frame.getInsets().right;
-            double y = mouseLocation.getY() - frameLocation.getY() - frame.getInsets().top - frame.getInsets().bottom;
+            double x = mouseLocation.getX() - frameLocation.getX() - frame.getInsets().left;
+            double y = mouseLocation.getY() - frameLocation.getY() - frame.getInsets().top;
 
             //limit the minimum JFrame size
             if (frame.getHeight() < height || frame.getWidth() < width){
