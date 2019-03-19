@@ -79,9 +79,14 @@ public class Main {
             double x = mouseLocation.getX() - frameLocation.getX() - frame.getInsets().left;
             double y = mouseLocation.getY() - frameLocation.getY() - frame.getInsets().top;
 
-            //limit the minimum JFrame size
-            if (frame.getHeight() < height || frame.getWidth() < width){
-                frame.setSize(new Dimension(width, height));
+            //limit the minimum JFrame height
+            if (frame.getHeight() < height){
+                frame.setSize(new Dimension(frame.getWidth(), height));
+            }
+
+            //limit the minimum JFrame width
+            if (frame.getWidth() < width){
+                frame.setSize(new Dimension(width, frame.getHeight()));
             }
 
             //random change location
